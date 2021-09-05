@@ -18,10 +18,12 @@ Example...
 <h5>C# Model.....</h5>
 
 <div> 
+
     [Required]
     public string Email { get; set; }
     [Required]
     public string Password { get; set; }
+    
 </div>
 
 
