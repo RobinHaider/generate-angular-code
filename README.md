@@ -14,41 +14,57 @@ Easy peasy lemon squeezy
 Happy Coding..
 
 Example...
-C# Model.....
+
+<h1>C# Model.....</h1>
+
+<div> 
 
  [Required]
  public string Email { get; set; }
  [Required]
  public string Password { get; set; }
 
-Angular Component...
+</div>
 
- loginForm = new FormGroup({
+
+<h1>Angular Component...</h1>
+
+<div> 
+
+    loginForm = new FormGroup({
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
-
-HTML Template...
-
- <div class="d-flex justify-content-center mt-5">
-    <div class="col-3">
-        <form [formGroup]="loginForm"  class="form-signin">
-            <div class="text-center mb-4">
-              <h1 class="h3 mb-3 font-weight-normal">Form Title</h1>
-            </div>
-          
-            <div class="form-label-group">
-              <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email address">
-              <label for="inputEmail">Email</label>
-            </div>
-          
-            <div class="form-label-group">
-              <input formControlName="password" type="password" id="password" class="form-control" placeholder="Password" >
-              <label for="password">Password</label>
-            </div>
-          
-        
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
-          </form>
-    </div>
+   
 </div>
+ 
+
+
+
+<h1>HTML Template...</h1>
+
+  <div class="d-flex justify-content-center mt-5">
+
+      <div class="col-3">
+          <form [formGroup]="loginForm"  class="form-signin">
+            
+              <div class="form-label-group">
+                <input formControlName="email" type="email" id="inputEmail" class="form-control" placeholder="Email address">
+                <label for="inputEmail">Email</label>
+              </div>
+            
+              <div class="form-label-group">
+                <input formControlName="password" type="password" id="password" class="form-control" placeholder="Password" >
+                <label for="password">Password</label>
+              </div>
+            
+          
+              <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
+            </form>
+      </div>
+
+  </div>
+
+
+
+ 
