@@ -15,19 +15,17 @@ Happy Coding..
 
 Example...
 
-<h1>C# Model.....</h1>
+<h5>C# Model.....</h5>
 
 <div> 
-
- [Required]
- public string Email { get; set; }
- [Required]
- public string Password { get; set; }
-
+    [Required]
+    public string Email { get; set; }
+    [Required]
+    public string Password { get; set; }
 </div>
 
 
-<h1>Angular Component...</h1>
+<h5>Angular Component...</h5>
 
 <div> 
 
@@ -35,13 +33,13 @@ Example...
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required)
   });
-   
+
 </div>
  
 
 
 
-<h1>HTML Template...</h1>
+<h5>HTML Template...</h5>
 
   <div class="d-flex justify-content-center mt-5">
 
