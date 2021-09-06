@@ -1,0 +1,18 @@
+<form [formGroup]="modelForm" (ngSubmit)="onGenerate()" >
+    <div class="mb-3">
+        <label for="model" class="form-label">Model</label>
+        <textarea formControlName="model" class="form-control" id="model" rows="5"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Generate</button>
+</form>
+
+<form [formGroup]="outputForm">
+    <div class="mb-3">
+        <label for="component" class="form-label">Component</label>
+        <textarea formControlName="component" class="form-control" id="component" rows="5"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="template" class="form-label">Template</label>
+        <textarea formControlName="template" class="form-control" id="template" rows="3"></textarea>
+      </div>
+</form>
