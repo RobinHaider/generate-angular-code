@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Field } from '../models/model';
 
 @Component({
   selector: 'app-reactive-form',
@@ -7,8 +8,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./reactive-form.component.scss'],
 })
 export class ReactiveFormComponent implements OnInit {
+  fields: Field[];
   modelForm = new FormGroup({
-    model: new FormControl('', [Validators.required,]),
+    model: new FormControl('', [Validators.required]),
   });
 
   outputForm = new FormGroup({
@@ -20,13 +22,15 @@ export class ReactiveFormComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  //next remove the last item from modelArray because it is undefined..
+  //next to generate the html..
 
   onGenerate() {
+    this.extractsFields();
     this.generateFromGroup();
+    this.generateHTMLtemplate();
   }
-
-  private generateFromGroup() {
+  extractsFields() {
+    this.fields = [];
     let modelDivider = '{ get; set; }'.replace(/\s+/g, '');
     let model = this.modelForm.controls.model.value;
     let modelArray = model
@@ -34,7 +38,7 @@ export class ReactiveFormComponent implements OnInit {
       .replace(/\r?\n|\r/g, '')
       .split(modelDivider);
     //console.log(modelArray);
-    let formControlArray = [];
+
     // delete last item from modelArray because it is undefined..
     modelArray.pop();
     //for each fields....
@@ -59,18 +63,33 @@ export class ReactiveFormComponent implements OnInit {
       //property type
       let type = propertyWithType.split(/[A-Z]\d*/)[0];
 
-      formControlArray.push(
-        this.generateFormControl(type, name, validationArray)
-      );
+      this.fields.push({
+        name: name,
+        type: type,
+        validations: validationArray,
+      });
       // console.log(name);
       // console.log(type);
       // console.log(formControlArray);
     });
+    console.log(this.fields);
+  }
+  generateHTMLtemplate() {
+    // generate html template from model...
+  }
 
+  private generateFromGroup() {
+    //console.log(modelArray);
+    let formControlArray = [];
+    //for each fields....
+    this.fields.forEach((field) => {
+      formControlArray.push(
+        this.generateFormControl(field.name, field.type, field.validations)
+      );
+    });
     //console.log(formControlArray);
     // formControlArray to string...
     let formControlString = formControlArray.join('\n');
-
     let formGroup =
       `formGroup = new FormGroup({` +
       '\n' +
@@ -81,11 +100,11 @@ export class ReactiveFormComponent implements OnInit {
     this.outputForm.controls.component.setValue(formGroup);
   }
 
-  generateFormControl(
-    type: any,
-    name: any,
+  private generateFormControl(
+    name: string,
+    type: string,
     validationArray: RegExpMatchArray
-  ): any {
+  ): string {
     let formControl = '';
     if (validationArray) {
       let validations = this.getValidations(validationArray);
@@ -106,5 +125,4 @@ export class ReactiveFormComponent implements OnInit {
     });
     return validationString;
   }
-
 }
