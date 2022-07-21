@@ -1,18 +1,252 @@
-<form [formGroup]="modelForm" (ngSubmit)="onGenerate()" >
-    <div class="mb-3">
-        <label for="model" class="form-label">Model</label>
-        <textarea formControlName="model" class="form-control" id="model" rows="5"></textarea>
+<div class="container mt-5">
+  <h3>Paste Your C# Model and Generate Angular Reactive Form code</h3>
+  <div class="row">
+    <div class="col-md-4">
+      <form [formGroup]="modelForm" (ngSubmit)="showOptions()">
+        <div class="mb-3">
+          <label for="model" class="form-label">Model</label>
+          <textarea
+            formControlName="model"
+            class="form-control"
+            id="model"
+            rows="15"
+          ></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Show Option</button>
+      </form>
+    </div>
+    <!-- Options -->
+    <div class="col-md-8">
+      <h4>Select Options</h4>
+      <div class="row">
+        <div class="float-right">
+          <button type="button" class="btn btn-primary">Generate Code</button>
+        </div>
       </div>
-      <button type="submit" class="btn btn-primary">Generate</button>
-</form>
+      <div *ngIf="fields">
+        <ul>
+          <ng-container *ngFor="let field of fields">
+            <li>
+              <h6>{{ field.name }}</h6>
+              <!-- Validations -->
+              <div>
+                <span style="margin-right: 10px">Validations:</span>
 
-<form [formGroup]="outputForm">
-    <div class="mb-3">
-        <label for="component" class="form-label">Component</label>
-        <textarea formControlName="component" class="form-control" id="component" rows="5"></textarea>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="requiredValidation{{ field.name }}"
+                    value="required"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="requiredValidation{{ field.name }}"
+                    >Required</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="minValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="minValidation{{ field.name }}"
+                    >min</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="maxValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="maxValidation{{ field.name }}"
+                    >max</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="requiredTrueValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="requiredTrueValidation{{ field.name }}"
+                    >requiredTrue</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="emailValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="emailValidation{{ field.name }}"
+                    >email</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="minLengthValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="minLengthValidation{{ field.name }}"
+                    >minLength</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="maxLengthValidation{{ field.name }}"
+                    value="option2"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="maxLengthValidation{{ field.name }}"
+                    >maxLength</label
+                  >
+                </div>
+              </div>
+              <!-- Field Type -->
+              <div>
+                <span style="margin-right: 10px">Field Type:</span>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="checkbox"
+                    id="checkboxFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="checkboxFieldType{{ field.name }}"
+                    >Checkbox</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="text"
+                    id="textFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="textFieldType{{ field.name }}"
+                    >Text</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="password"
+                    id="passwordFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="passwordFieldType{{ field.name }}"
+                    >Password</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="radiobtn"
+                    id="radiobtnFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="radiobtnFieldType{{ field.name }}"
+                    >Radio Btn</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="number"
+                    id="numberFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="numberFieldType{{ field.name }}"
+                    >Number</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="fieldType{{ field.name }}"
+                    value="email"
+                    id="emailFieldType{{ field.name }}"
+                  />
+                  <label
+                    class="form-check-label"
+                    for="emailFieldType{{ field.name }}"
+                    >Email</label
+                  >
+                </div>
+              </div>
+            </li>
+            <hr />
+          </ng-container>
+        </ul>
       </div>
-      <div class="mb-3">
-        <label for="template" class="form-label">Template</label>
-        <textarea formControlName="template" class="form-control" id="template" rows="3"></textarea>
-      </div>
-</form>
+    </div>
+    <!-- Result -->
+    <div *ngIf="showResult" class="col-md-8">
+      <form [formGroup]="outputForm">
+        <div class="row">
+          <!-- Component Result -->
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="component" class="form-label">Component</label>
+              <textarea
+                formControlName="component"
+                class="form-control"
+                id="component"
+                rows="15"
+              ></textarea>
+            </div>
+          </div>
+          <!-- Template Result -->
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="template" class="form-label">Template</label>
+              <textarea
+                formControlName="template"
+                class="form-control"
+                id="template"
+                rows="15"
+              ></textarea>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

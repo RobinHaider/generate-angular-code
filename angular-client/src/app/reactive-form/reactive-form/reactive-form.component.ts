@@ -8,9 +8,10 @@ import { Field } from '../models/model';
   styleUrls: ['./reactive-form.component.scss'],
 })
 export class ReactiveFormComponent implements OnInit {
+  showResult = false;
   fields: Field[];
   modelForm = new FormGroup({
-    model: new FormControl('', [Validators.required]),
+    model: new FormControl(this.getModelInitialValue(), [Validators.required]),
   });
 
   outputForm = new FormGroup({
@@ -24,7 +25,7 @@ export class ReactiveFormComponent implements OnInit {
 
   //next to generate the html..
 
-  onGenerate() {
+  showOptions() {
     this.extractsFields();
     this.generateFromGroup();
     this.generateHTMLtemplate();
@@ -124,5 +125,14 @@ export class ReactiveFormComponent implements OnInit {
       }
     });
     return validationString;
+  }
+
+  private getModelInitialValue() {
+    return (
+      ' public string FirstName { get; set; }' +
+      ' public string LastName { get; set; }' +
+      ' public string Email { get; set; }' +
+      ' public string Password { get; set; }'
+    );
   }
 }
